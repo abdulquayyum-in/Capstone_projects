@@ -7,7 +7,7 @@ import userRouter from "./controller/users/index.js"
 import TaskRouter from "./controller/tasks/index.js"
 const app = express()
 const __filename = fileURLToPath(import.meta.url); //
-const _dirname = path.dirname(_filename); //
+const __dirname = path.dirname(__filename); //
 
 app.use(express.static(path.join(__dirname, 'build')));
 app.use(express.json())
