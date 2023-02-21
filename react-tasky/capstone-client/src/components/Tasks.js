@@ -94,7 +94,6 @@ function Tasks() {
               <tbody>
                 {tasks.map((ele, index) => (
                   <tr key={index}>
-                    <td>{ele._id}</td>
                     <td>{++i}</td>
                     <td>{ele.taskname}</td>
                     <td>{ele.isCompleted ? "Completed" : "Incomplete"}</td>
