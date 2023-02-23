@@ -5,7 +5,7 @@ const app = express();
 const port = 3002;
 
 const client_id = 'e6fe1463d1e010ddac1d';
-const client_secret = '23b05c0f35ba53f3c664bb6adbfe3a17a1338041';
+const client_secret = '0afeb26b76baaacfb16d737d02b109fffb1975c4';
 const redirect_uri = 'http://192.168.68.189:3002/callback';
 const scope = 'repo';
 
@@ -16,48 +16,53 @@ app.get('/', (req, res) => {
 });
 
 app.get('/callback', async (req, res) => {
+  console.log(req.query)
   const code = req.query.code;
   console.log(code)
-//   console.log(code)
+  //   console.log(code)
   const token_url = `https://github.com/login/oauth/access_token?client_id=${client_id}&client_secret=${client_secret}&code=${code}`;
   try {
     const response = await axios.post(token_url, {}, {
-        headers: {
-          Accept: 'application/json'
-        }
-      });
-      const access_token = response.data.access_token;
-      console.log(access_token);
-   
-      const user_url = 'https://api.github.com/user';
-      const user_response = await axios.get(user_url, {
-        headers: {
-          Authorization: `Token ${access_token}`,
-          Accept: 'application/json'
-        }
-      });
+      headers: {
+        Accept: 'application/json'
+      }
+    });
+    const access_token = response.data.access_token;
+    console.log(access_token);
 
-
-      const user_repourl = 'https://api.github.com/user';
-      const user_res = await axios.get(user_url, {
-        headers: {
-          Authorization: `Token ${access_token}`,
-          Accept: 'application/json'
-        }
-      });
-
-
-      console.log(user_response)
-      const user = user_response.data;
-      console.log(user)
-      res.send(`Welcome, ${user.name} (${user.login})`);
+    const user_url = 'https://api.github.com/user';
+    const user_response = await axios.get(user_url, {
+      headers: {
+        Authorization: `Token ${access_token}`,
+        Accept: 'application/json'
+      }
+    });
+    // console.log(user_response)
+    const user = user_response.data;
+    console.log(user)
+    const user_pr_url = 'https://api.github.com/user/issues?filter=all&state=all&type=pr';
+    const user_pr_response = await axios.get(user_pr_url, {
+      headers: {
+        Authorization: `Token ${access_token}`,
+        Accept: 'application/json'
+      }
+    });
+    // console.log(user_pr_response.data);
+    console.log("PR Raised")
+    const user_prs = user_pr_response.data.map(pr => ({
+      repoName: pr.repository.name,
+      user: pr.user.login,
+      status: pr.state
+    }));
+    console.log(user_prs);
+    res.send(`Welcome, ${user.name} (${user.login})`);
   } catch (error) {
+    res.send("error")
     console.error(error)
   }
-  
+
 
 });
-
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
