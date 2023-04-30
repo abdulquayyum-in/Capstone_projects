@@ -47,12 +47,14 @@ app.get('/callback', async (req, res) => {
         Accept: 'application/json'
       }
     });
+    console.log(user_pr_response);
     // console.log(user_pr_response.data);
     console.log("PR Raised")
     const user_prs = user_pr_response.data.map(pr => ({
       repoName: pr.repository.name,
       user: pr.user.login,
-      status: pr.state
+      status: pr.state,
+      merge:pr.merged == undefined ? false :true
     }));
     console.log(user_prs);
     res.send(`Welcome, ${user.name} (${user.login})`);

@@ -43,7 +43,7 @@ router.post("/register", registerValidations(), errorMiddleware, async (req, res
             ${URL}/api/user/verify/email/${userverifyToken.email}`,
             subject: "Email verification",
             receiver: email,
-          });
+        });
         // sendMessage(phone,userverifyToken.phone)
         let user = new User({ firstname, lastname, email, password: hashedpassword, password2, phone, userverifyToken });
         await user.save();
@@ -82,7 +82,7 @@ router.post("/login", loginValidations(), errorMiddleware, async (req, res) => {
             Tasky Scheduler is a web-based productivity application designed to help users manage their tasks, to-do lists, and schedules more efficiently. With Tasky Scheduler, users can easily access their tasks and schedules from any device with an internet connection. Tasky Scheduler allows users to create tasks and set deadlines, create recurring tasks, and prioritize tasks by setting their importance and urgency levels. Users can also add notes and attachments to tasks, such as files, images, and links. The application features a calendar view that allows users to view all their tasks and deadlines in a monthly, weekly, or daily view. Users can also create custom reminders for their tasks, so they never miss an important deadline.`,
             subject: "Scheduler Application",
             receiver: req.body.email,
-          });
+        });
 
     } catch (error) {
         console.error(error);
@@ -137,10 +137,7 @@ router.get("/verify/phone/:phonetoken", async (req, res) => {
 
 router.post("/resend/email", async (req, res) => {
     try {
-        console.log(req.body);
-        console.log(req.headers);
-        // Find the user by email
-        console.log(req.body.email);
+   
         const user = await User.findOne({ email: req.body.email });
         if (!user) {
             return res.status(404).json({ error: "User not found" });
@@ -156,9 +153,7 @@ router.post("/resend/email", async (req, res) => {
             ${URL}/api/user/verify/email/${user.userverifyToken.email}`,
             subject: "Email verification",
             receiver: req.body.email,
-          })
-
-
+        })
         res.status(200).json({ success: "Email verification link sent" });
     } catch (error) {
         console.error(error);
