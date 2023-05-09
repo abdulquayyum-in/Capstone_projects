@@ -15,15 +15,18 @@ async function getdata(){
       pokemondata.name = ele.name
      pokemondata.data = data1.data
      pokeuserdata.push(pokemondata)
+     console.log(pokeuserdata);
     })
+    console.log(pokeuserdata);
     return pokeuserdata
     
 }
 getdata()
 
-export default function Home() {
+export default  function Home() {
     const [poke,setpokeddata] = useState("")
      setpokeddata(getdata())
+     console.log("object");
     console.log(poke);
   return (
 <>
