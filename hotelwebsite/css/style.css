@@ -42,6 +42,10 @@ p {
   font-size: 20px;
 }
 
+.clr{
+  clear: both;
+}
+
 .btn {
   display: inline-block;
   padding: 12px;
@@ -167,6 +171,55 @@ p {
   text-align: center;
 }
 
-.box i{
-  /* margin-bottom: 10px; */
+#main-footer{
+  text-align: center;
+  background: #444;
+  color: #fff;
+  padding: 20px;
 }
+
+#about-details{
+  margin-top: 20px;
+  line-height: 1.5em;
+
+}
+
+#about-details .about-content{
+  padding-right: 12px ;
+  width: 60%;
+  float: left;
+  line-height: 1.5em;
+}
+
+#about-details .about-img{
+  float: right;
+  line-height: 1.5em;
+}
+
+.about-content{
+  width: 50%;
+}
+
+.about-content h1{
+  font-size: 35px;
+}
+
+.about-content p{
+ text-align: justify;
+}
+
+.about-img{
+  max-width: 50%;
+  width: 40%;
+}
+
+.about-img img{
+  max-width: 100%;
+  height: 220px;
+  border-radius: 50%;
+}
+
+img{
+  width: 100%;
+}
+
