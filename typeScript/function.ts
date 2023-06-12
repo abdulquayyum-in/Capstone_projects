@@ -1,13 +1,3 @@
-const user = {
-    name:"hitesh",
-    email:"hitesh@gmail.com",
-    isActive:true
+function name(params:type) {
+    encodeURI
 }
-
-function createuser({name:string,ispaid:boolean}){
-
-}
-
-createuser({"quayyum",true})
-
-export {}
